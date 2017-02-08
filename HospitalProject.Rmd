@@ -163,7 +163,29 @@ HeartAttackOutcome <- PercentageOfAboveAverageHospitalsPerState("heart attack")
 States = HeartAttackOutcome$States
 HeartFailureOutcome <- PercentageOfAboveAverageHospitalsPerState("heart failure")
 PneumoniaOutcome <- PercentageOfAboveAverageHospitalsPerState("pneumonia")
+
 HeartAttackOutcomeTest = data.frame(states = factor(c(HeartAttackOutcome$States), levels=c(HeartAttackOutcome$States)), Above_Average_Hospitals = c(HeartAttackOutcome$output))
 HeartAttackOutcomeTest$states = States
-ggplot(data=HeartAttackOutcomeTest, aes(x=states, y = Above_Average_Hospitals, fill = states)) + geom_bar(stat = "identity")
+ggplot(data=HeartAttackOutcomeTest, aes(x=states, y = Above_Average_Hospitals, fill = states)) + geom_bar(stat = "identity") + ggtitle("Heart Attack")
+
+HeartFailureOutcomeTest = data.frame(states = factor(c(HeartFailureOutcome$States), levels=c(HeartFailureOutcome$States)), Above_Average_Hospitals = c(HeartFailureOutcome$output))
+HeartFailureOutcomeTest$states = States
+ggplot(data=HeartFailureOutcomeTest, aes(x=states, y = Above_Average_Hospitals, fill = states)) + geom_bar(stat = "identity") + ggtitle("Heart Failure")
+
+PneumoniaOutcomeTest = data.frame(states = factor(c(PneumoniaOutcome$States), levels=c(PneumoniaOutcome$States)), Above_Average_Hospitals = c(PneumoniaOutcome$output))
+PneumoniaOutcomeTest$states = States
+ggplot(data=PneumoniaOutcomeTest, aes(x=states, y = Above_Average_Hospitals, fill = states)) + geom_bar(stat = "identity") + ggtitle("Pneumonia")
+```
+
+Here is the median household income of each state:
+
+```{r}
+d <- read.csv("Median_Income_Per_State.csv", colClasses = "character")
+Income = d$Median
+Income = as.numeric(Income)
+MedianIncome = data.frame(states = factor(c(d$GeographicalArea), levels=c(d$GeographicalArea)), 
+                          Income = c(Income))
+ggplot(data = MedianIncome, aes(x=states, y = Income, fill = states)) + 
+  geom_bar(stat = "identity") + ggtitle("Median Household Income")
+
 ```
